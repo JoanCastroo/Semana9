@@ -7,7 +7,7 @@ void llenarMatriz(int **matriz, int filas, int columnas) {
     
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
-            matriz[i][j] = rand() % 100 + 1;  // Generar número aleatorio entre 1 y 100
+            matriz[i][j] = rand() % 100 + 1;  
         }
     }
 }
@@ -37,9 +37,40 @@ int main() {
     printf("Ingrese el número de columnas de la matriz: ");
     scanf("%d", &columnas);
     
-    // Crear matriz original
     int **matriz = (int **)malloc(filas * sizeof(int *));
     for (int i = 0; i < filas; i++) {
         matriz[i] = (int *)malloc(columnas * sizeof(int));
     }
     
+   
+    llenarMatriz(matriz, filas, columnas);
+    
+    printf("Matriz original:\n");
+    imprimirMatriz(matriz, filas, columnas);
+    
+   
+    int **transpuesta = (int **)malloc(columnas * sizeof(int *));
+    for (int i = 0; i < columnas; i++) {
+        transpuesta[i] = (int *)malloc(filas * sizeof(int));
+    }
+    
+    
+    calcularTranspuesta(matriz, transpuesta, filas, columnas);
+    
+    printf("\nMatriz transpuesta:\n");
+    imprimirMatriz(transpuesta, columnas, filas);
+    
+    
+    for (int i = 0; i < filas; i++) {
+        free(matriz[i]);
+    }
+    free(matriz);
+    
+    for (int i = 0; i < columnas; i++) {
+        free(transpuesta[i]);
+    }
+    free(transpuesta);
+    
+    return 0;
+}
+
